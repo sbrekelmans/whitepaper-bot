@@ -31,17 +31,13 @@ module.exports = function (controller) {
 
     });
 
-    controller.hears(['color'], 'direct_message,direct_mention', function (bot, message) {
+    controller.hears(['cc eth'], 'message, direct_message,direct_mention', function (bot, message) {
+
 
         bot.startConversation(message, function (err, convo) {
-            convo.say('This is an example of using convo.ask with a single callback.');
+            convo.say('Hier staat meer informatie');
 
-            convo.ask('What is your favorite color?', function (response, convo) {
-
-                convo.say('Cool, I like ' + response.text + ' too!');
-                convo.next();
-
-            });
+            convo.say("https://www.cryptocompare.com/coins/" + projects[0].name);
         });
 
     });

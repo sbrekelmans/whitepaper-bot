@@ -51,14 +51,17 @@ This bot demonstrates many of the core features of Botkit:
     -> http://howdy.ai/botkit
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+const MongoClient = require('mongodb').MongoClient;
+var db;
+
 var env = require('node-env-file');
 env(__dirname + '/.env');
 
 
 if (!process.env.clientId || !process.env.clientSecret || !process.env.PORT) {
-  console.log('Error: Specify clientId clientSecret and PORT in environment');
-  usage_tip();
-  process.exit(1);
+    console.log('Error: Specify clientId clientSecret and PORT in environment');
+    usage_tip();
+    process.exit(1);
 }
 
 var Botkit = require('botkit');
@@ -76,7 +79,7 @@ var bot_options = {
 // Use a mongo database if specified, otherwise store in a JSON file local to the app.
 // Mongo is automatically configured when deploying to Heroku
 if (process.env.MONGO_URI) {
-    var mongoStorage = require('botkit-storage-mongo')({mongoUri: process.env.MONGO_URI});
+    var mongoStorage = require('botkit-storage-mongo')({ mongoUri: process.env.MONGO_URI });
     bot_options.storage = mongoStorage;
 } else {
     bot_options.json_file_store = __dirname + '/.data/db/'; // store user data in a simple JSON format
@@ -105,10 +108,21 @@ require(__dirname + '/components/plugin_dashbot.js')(controller);
 
 
 var normalizedPath = require("path").join(__dirname, "skills");
-require("fs").readdirSync(normalizedPath).forEach(function(file) {
-  require("./skills/" + file)(controller);
+require("fs").readdirSync(normalizedPath).forEach(function (file) {
+    require("./skills/" + file)(controller);
 });
+MongoClient.connect('mongodb://importcoininfo:Gv1XJQz9cG4Uoxn20i7z8U8VYjPHZEZz@ds151004.mlab.com:51004/coininfo', (err, database) => {
+    if (err) return console.log(err);
+    db = database;
+})
 
+var projects = [];
+
+db.collection('projects').find().limit(25).sort({ "id": 1 }).toArray(function (err, results) {
+    //console.log(results);
+    projects = results;
+    // send HTML file populated with quotes here
+});
 
 
 // This captures and evaluates any message sent to the bot as a DM
@@ -118,8 +132,8 @@ require("fs").readdirSync(normalizedPath).forEach(function(file) {
 // You can tie into the execution of the script using the functions
 // controller.studio.before, controller.studio.after and controller.studio.validate
 if (process.env.studio_token) {
-    controller.on('direct_message,direct_mention,mention', function(bot, message) {
-        controller.studio.runTrigger(bot, message.text, message.user, message.channel, message).then(function(convo) {
+    controller.on('direct_message,direct_mention,mention', function (bot, message) {
+        controller.studio.runTrigger(bot, message.text, message.user, message.channel, message).then(function (convo) {
             if (!convo) {
                 // no trigger was matched
                 // If you want your bot to respond to every message,
@@ -131,7 +145,7 @@ if (process.env.studio_token) {
                 // use controller.studio.before('script') to set variables specific to a script
                 convo.setVar('current_time', new Date());
             }
-        }).catch(function(err) {
+        }).catch(function (err) {
             bot.reply(message, 'I experienced an error with a request to Botkit Studio: ' + err);
             debug('Botkit Studio: ', err);
         });
