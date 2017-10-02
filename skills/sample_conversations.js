@@ -11,6 +11,21 @@ through the conversation are chosen based on the user's response.
 
 module.exports = function(controller) {
 
+    controller.hears(['test'], 'direct_message,direct_mention', function(bot, message) {
+        
+                bot.startConversation(message, function(err, convo) {
+                    convo.say('Dit is een test.');
+        
+                    convo.ask('Wat vind je ervan?', function(response, convo) {
+        
+                        convo.say('Leuk voor je dat je ' + response.text + ' leuk vindt joh.');
+                        convo.next();
+        
+                    });
+                });
+        
+            });
+
     controller.hears(['color'], 'direct_message,direct_mention', function(bot, message) {
 
         bot.startConversation(message, function(err, convo) {
