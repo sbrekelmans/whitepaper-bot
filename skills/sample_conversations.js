@@ -38,8 +38,8 @@ module.exports = function (controller) {
 
 
 
-                getJSONP('http://soundcloud.com/oembed?url=http%3A//soundcloud.com/forss/flickermood&format=js&callback=?', function (data) {
-                    convo.say('test url');
+                getJSONP('https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=7605', function (data) {
+                    convo.say(data);
                 });
                 convo.next();
 
