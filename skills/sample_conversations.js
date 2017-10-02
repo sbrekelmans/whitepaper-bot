@@ -31,7 +31,7 @@ module.exports = function (controller) {
                         convo.say("er gaat iets mis...")
                     }
                 });
-
+                convo.say("request is voorbij.")
                 convo.next();
 
             });
