@@ -31,11 +31,11 @@ module.exports = function (controller) {
 
     });
 
-    controller.hears(['^cc$'], 'direct_message,direct_mention', function (bot, message) {
-        var coin = message.substring(3);
+    controller.hears(['^cc (.*)','^cc'], 'direct_message,direct_mention', function (bot, message) {
+        //var coin = message.substring(3);
 
         bot.startConversation(message, function (err, convo) {
-            convo.say('Hier staat meer informatie: https://www.cryptocompare.com/coins/' + coin);
+            convo.say('dit hoor ik: ' + message);
         });
 
     });
