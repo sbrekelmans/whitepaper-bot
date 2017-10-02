@@ -111,18 +111,7 @@ var normalizedPath = require("path").join(__dirname, "skills");
 require("fs").readdirSync(normalizedPath).forEach(function (file) {
     require("./skills/" + file)(controller);
 });
-MongoClient.connect('mongodb://importcoininfo:Gv1XJQz9cG4Uoxn20i7z8U8VYjPHZEZz@ds151004.mlab.com:51004/coininfo', (err, database) => {
-    if (err) return console.log(err);
-    db = database;
-})
 
-var projects = [];
-
-db.collection('projects').find().limit(25).sort({ "id": 1 }).toArray(function (err, results) {
-    //console.log(results);
-    projects = results;
-    // send HTML file populated with quotes here
-});
 
 
 // This captures and evaluates any message sent to the bot as a DM

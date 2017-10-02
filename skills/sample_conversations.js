@@ -13,7 +13,7 @@ var request = require('request');
 
 var project = [
     {
-        name: "bitcoin",
+        name: "btc",
         wplink: "www.bitcoin.com"
     }
 ]
@@ -31,13 +31,13 @@ module.exports = function (controller) {
 
     });
 
-    controller.hears(['cc eth'], 'message, direct_message,direct_mention', function (bot, message) {
+    controller.hears(['cc btc'], 'message, direct_message,direct_mention', function (bot, message) {
 
 
         bot.startConversation(message, function (err, convo) {
             convo.say('Hier staat meer informatie');
 
-            convo.say("https://www.cryptocompare.com/coins/" + projects[0].name);
+            convo.say("https://www.cryptocompare.com/coins/" + project[0].name);
         });
 
     });
