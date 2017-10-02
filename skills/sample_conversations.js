@@ -20,9 +20,7 @@ module.exports = function (controller) {
 
             convo.ask('Wat vind je er nou echt van?', function (response, convo) {
 
-                var url = 'https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=7605';
-
-                http.get(url, function (res) {
+                http.get('https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=7605', function (res) {
                     var body = '';
 
                     res.on('data', function (chunk) {
@@ -34,7 +32,7 @@ module.exports = function (controller) {
                         convo.say("Got a response: ", ccResponse.Message);
                     });
                 }).on('error', function (e) {
-                    console.log("Got an error: ", e);
+                    convo.say("Got an error: ", e);
                 });
 
                 convo.say("request is voorbij.")
