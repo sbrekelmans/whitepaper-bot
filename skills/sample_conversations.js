@@ -22,12 +22,6 @@ module.exports = function (controller) {
 
     controller.hears(['test'], 'direct_message,direct_mention', function (bot, message) {
 
-        request('http://www.google.com', function (error, response, body) {
-          convo.say('error:', error); // Print the error if one occurred
-          convo.say('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-          convo.say('body:', body); // Print the HTML for the Google homepage.
-        });
-
 
         bot.startConversation(message, function (err, convo) {
             convo.say('Dit is een test.');
