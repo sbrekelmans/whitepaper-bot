@@ -35,7 +35,7 @@ module.exports = function (controller) {
         //var coin = message.substring(3);
 
         bot.startConversation(message, function (err, convo) {
-            convo.say('dit hoor ik: ' + message);
+            convo.say('Kijk zelf maar hier: https://www.cryptocompare.com/coins/"' + message[0].substring(3));
         });
 
     });
