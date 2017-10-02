@@ -21,14 +21,14 @@ var project = [
 module.exports = function (controller) {
 
     controller.hears(['test'], 'direct_message,direct_mention', function (bot, message) {
-        function(req, res) {
-            request.get('https://www.cryptocompare.com/api/data/socialstats/?id=12192', function (err, response, body) {
-                if (!err && response.statusCode == 200) {
-                    project = JSON.parse(body);
-                }
+
+        request.get('https://www.cryptocompare.com/api/data/socialstats/?id=12192', function (err, response, body) {
+            if (!err && response.statusCode == 200) {
+                project = JSON.parse(body);
             }
-            )
         }
+        )
+
 
         bot.startConversation(message, function (err, convo) {
             convo.say('Dit is een test.' + project[0].Message);
