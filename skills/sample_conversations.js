@@ -20,19 +20,13 @@ var project = [
 
 module.exports = function (controller) {
 
-    controller.hears(['test'], 'direct_message,direct_mention', function (bot, message) {
+    controller.hears(['wp eth'], 'direct_message,direct_mention', function (bot, message) {
 
 
         bot.startConversation(message, function (err, convo) {
-            convo.say('Dit is een test.');
+            convo.say('Hier staat de whitepaper:');
 
-            convo.ask('Wat vind je er nou echt van?', function (response, convo) {
-
-
-                convo.say("antwoord");
-                convo.next();
-
-            });
+            convo.say("https://github.com/ethereum/wiki/wiki/White-Paper");
         });
 
     });
