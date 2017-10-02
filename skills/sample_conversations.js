@@ -23,15 +23,13 @@ module.exports = function (controller) {
 
             convo.ask('Wat vind je er nou echt van?', function (response, convo) {
 
-                function(req, res) {
-                    request.get('https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=7605', function (err, response, body) {
-                        if (!err && response.statusCode == 200) {
-                            var locals = JSON.parse(body);
-                            convo.say(localsa);
-                        }
+                request.get('https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=7605', function (err, response, body) {
+                    if (!err && response.statusCode == 200) {
+                        var locals = JSON.parse(body);
+                        convo.say(locals);
                     }
-                }
-               
+                });
+
                 convo.next();
 
             });
