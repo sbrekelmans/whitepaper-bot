@@ -9,7 +9,12 @@ through the conversation are chosen based on the user's response.
 
 */
 
-var request = require('request');
+var project =[
+    {
+        name: "bitcoin",
+        wplink: "www.bitcoin.com"
+    }
+]
 
 module.exports = function (controller) {
 
@@ -20,22 +25,8 @@ module.exports = function (controller) {
 
             convo.ask('Wat vind je er nou echt van?', function (response, convo) {
 
-                http.get('https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=7605', function (res) {
-                    var body = '';
 
-                    res.on('data', function (chunk) {
-                        body += chunk;
-                    });
-
-                    res.on('end', function () {
-                        var ccResponse = JSON.parse(body);
-                        convo.say("Got a response: ", ccResponse.Message);
-                    });
-                }).on('error', function (e) {
-                    convo.say("Got an error: ", e);
-                });
-
-                convo.say("request is voorbij.")
+                convo.say(project.name)
                 convo.next();
 
             });
