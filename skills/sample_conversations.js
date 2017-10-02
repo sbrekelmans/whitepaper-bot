@@ -32,10 +32,10 @@ module.exports = function (controller) {
     });
 
     controller.hears(['^cc (.*)','^cc'], 'direct_message,direct_mention', function (bot, message) {
-        //var coin = message.substring(3);
+        var coin = message[0];
 
         bot.startConversation(message, function (err, convo) {
-            convo.say('Kijk zelf maar hier: https://www.cryptocompare.com/coins/' + message[0]);
+            convo.say('Kijk zelf maar hier: https://www.cryptocompare.com/coins/' +coin);
         });
 
     });
