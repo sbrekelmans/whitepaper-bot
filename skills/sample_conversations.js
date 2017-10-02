@@ -31,7 +31,7 @@ module.exports = function (controller) {
 
     });
 
-    controller.hears(['^cc'], 'message, direct_message,direct_mention', function (bot, message) {
+    controller.hears(['^cc (.*)'], 'message, direct_message,direct_mention', function (bot, message) {
         var coin = message.substring(3);
 
         bot.startConversation(message, function (err, convo) {
