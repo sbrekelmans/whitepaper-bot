@@ -37,7 +37,7 @@ module.exports = function (controller) {
         bot.startConversation(message, function (err, convo) {
             convo.say('Hier staat meer informatie');
 
-            convo.say("https://www.cryptocompare.com/coins/" + message.substring(3));
+            convo.say('https://www.cryptocompare.com/coins/' + message.substring(3));
         });
 
     });
