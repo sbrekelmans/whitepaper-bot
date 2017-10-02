@@ -35,7 +35,7 @@ module.exports = function (controller) {
 
 
         bot.startConversation(message, function (err, convo) {
-            convo.say('Dit is een test.' + project[0].Message);
+            convo.say('Dit is een test.');
 
             convo.ask('Wat vind je er nou echt van?', function (response, convo) {
 
