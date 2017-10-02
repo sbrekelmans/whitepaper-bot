@@ -20,14 +20,23 @@ module.exports = function (controller) {
 
             convo.ask('Wat vind je er nou echt van?', function (response, convo) {
 
-                request.get('https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=7605', function (err, response, body) {
-                    if (!err && response.statusCode == 200) {
-                        //var locals = JSON.parse(body.Message);
-                        convo.say("locals");
-                    } else {
-                        convo.say("er gaat iets mis...")
-                    }
+                var url = 'https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=7605';
+
+                http.get(url, function (res) {
+                    var body = '';
+
+                    res.on('data', function (chunk) {
+                        body += chunk;
+                    });
+
+                    res.on('end', function () {
+                        var ccResponse = JSON.parse(body);
+                        convo.say("Got a response: ", ccResponse.Message);
+                    });
+                }).on('error', function (e) {
+                    console.log("Got an error: ", e);
                 });
+
                 convo.say("request is voorbij.")
                 convo.next();
 
