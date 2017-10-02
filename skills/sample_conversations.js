@@ -26,9 +26,9 @@ module.exports = function (controller) {
             if (!err && response.statusCode == 200) {
                 //project = JSON.parse(body);
                 project = body;
-                convo.say(JSON.parse(body));
+                convo.say("body");
             } else {
-                convo.say(err);
+                convo.say("error");
             }
         }
         )
