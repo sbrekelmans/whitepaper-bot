@@ -24,7 +24,8 @@ module.exports = function (controller) {
 
         request.get('https://www.cryptocompare.com/api/data/socialstats/?id=12192', function (err, response, body) {
             if (!err && response.statusCode == 200) {
-                project = JSON.parse(body);
+                //project = JSON.parse(body);
+                project = body;
             }
         }
         )
