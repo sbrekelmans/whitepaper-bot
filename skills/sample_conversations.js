@@ -11,9 +11,6 @@ through the conversation are chosen based on the user's response.
 
 var request = require('request');
 
-
-
-
 module.exports = function (controller) {
 
     controller.hears(['test'], 'direct_message,direct_mention', function (bot, message) {
@@ -25,8 +22,8 @@ module.exports = function (controller) {
 
                 request.get('https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=7605', function (err, response, body) {
                     if (!err && response.statusCode == 200) {
-                        var locals = JSON.parse(body.Message);
-                        convo.say(locals);
+                        //var locals = JSON.parse(body.Message);
+                        convo.say("locals");
                     } else {
                         convo.say("er gaat iets mis...")
                     }
