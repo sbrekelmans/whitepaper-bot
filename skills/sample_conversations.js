@@ -23,13 +23,7 @@ module.exports = function (controller) {
     controller.hears(['test'], 'direct_message,direct_mention', function (bot, message) {
 
         request.get('https://www.cryptocompare.com/api/data/socialstats/?id=12192', function (err, response, body) {
-            if (!err && response.statusCode == 200) {
-                //project = JSON.parse(body);
-                project = body;
-                convo.say("body");
-            } else {
-                convo.say("error");
-            }
+          convo.say("execute code here");
         }
         )
 
