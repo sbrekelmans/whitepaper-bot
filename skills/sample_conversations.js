@@ -9,22 +9,9 @@ through the conversation are chosen based on the user's response.
 
 */
 
-function getJSONP(url, success) {
+var request = require('request');
 
-    var ud = '_' + +new Date,
-        script = document.createElement('script'),
-        head = document.getElementsByTagName('head')[0]
-            || document.documentElement;
 
-    window[ud] = function (data) {
-        head.removeChild(script);
-        success && success(data);
-    };
-
-    script.src = url.replace('callback=?', 'callback=' + ud);
-    head.appendChild(script);
-
-}
 
 
 module.exports = function (controller) {
@@ -36,11 +23,15 @@ module.exports = function (controller) {
 
             convo.ask('Wat vind je er nou echt van?', function (response, convo) {
 
-
-
-                getJSONP('https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=7605', function (data) {
-                    convo.say(data);
-                });
+                function(req, res) {
+                    request.get('https://www.cryptocompare.com/api/data/coinsnapshotfullbyid/?id=7605', function (err, response, body) {
+                        if (!err && response.statusCode == 200) {
+                            var locals = JSON.parse(body);
+                            convo.say(localsa);
+                        }
+                    }
+                }
+               
                 convo.next();
 
             });
