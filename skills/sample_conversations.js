@@ -8,8 +8,10 @@ In this example, Botkit hears a keyword, then asks a question. Different paths
 through the conversation are chosen based on the user's response.
 
 */
+var request = require('request');
 
-var project =[
+
+var project = [
     {
         name: "bitcoin",
         wplink: "www.bitcoin.com"
@@ -19,9 +21,17 @@ var project =[
 module.exports = function (controller) {
 
     controller.hears(['test'], 'direct_message,direct_mention', function (bot, message) {
+        function(req, res) {
+            request.get('https://www.cryptocompare.com/api/data/socialstats/?id=12192', function (err, response, body) {
+                if (!err && response.statusCode == 200) {
+                    project = JSON.parse(body);
+                }
+            }
+            )
+        }
 
         bot.startConversation(message, function (err, convo) {
-            convo.say('Dit is een test.' + project[0].name);
+            convo.say('Dit is een test.' + project[0].Message);
 
             convo.ask('Wat vind je er nou echt van?', function (response, convo) {
 
