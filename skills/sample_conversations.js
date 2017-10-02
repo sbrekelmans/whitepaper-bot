@@ -21,12 +21,12 @@ module.exports = function (controller) {
     controller.hears(['test'], 'direct_message,direct_mention', function (bot, message) {
 
         bot.startConversation(message, function (err, convo) {
-            convo.say('Dit is een test.');
+            convo.say('Dit is een test.' + project.name);
 
             convo.ask('Wat vind je er nou echt van?', function (response, convo) {
 
 
-                convo.say(project.name)
+                convo.say("antwoord");
                 convo.next();
 
             });
